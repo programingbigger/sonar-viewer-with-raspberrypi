@@ -1,0 +1,9 @@
+[tool.poetry]
+name = "my_package"
+version = "0.1.0"
+description = "poetry ver1"
+authors = [""]
+
+packages = [
+    { include = "comp" }
+}
