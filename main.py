@@ -26,7 +26,7 @@ import sys
 
 # setup tkinter
 root = tk.Tk()
-root.geometry(" 800x900")
+root.geometry("800x900")
 screen_name = root.winfo_screen()
 print(f"Current screen: {screen_name}")
 root.title("潜水艦ソナー")
@@ -38,17 +38,22 @@ CENTER_X = WIDTH // 2
 CENTER_Y = HEIGHT // 2
 RADIUS = min(CENTER_X, CENTER_Y) * 0.9
 
-# setup canvas1
-WIDTH = 800
-HEIGHT = 300
-
 # setup color
 GREEN = "#00FF00"
 RED = "#FF0000"
 
 # canvas1
-canvas1 = tk.canvas1(root, width=WIDTH, height=HEIGHT, bg="black")
+WIDTH = 800
+HEIGHT =  600
+canvas1 = tk.Canvas(root, width=WIDTH, height=HEIGHT, bg="black")
 canvas1.pack()
+
+# setup canvas2
+WIDTH_ = 800
+HEIGHT_ =  300
+canvas2 = tk.Canvas(root, width=WIDTH, height=HEIGHT, bg="white")
+canvas2.pack()
+
 
 def get_xy_sensor(agl):
 		# 点座標の算出
@@ -60,6 +65,10 @@ def get_xy_sensor(agl):
 		return x,y
 
 try:
+	
+	# canvas2 setting
+	canvas2.create_line(400, 0, 400, 300, width=10, fill=RED)
+	
 	for i in range(0, 181, 1):
 		X, Y = get_xy_sensor(agl = i)
 		# 点を描画
@@ -69,7 +78,7 @@ try:
 		time.sleep(0.2)
 
 	for i in range(180, -1, -1):
-		X, Y = get_xy_sensor(agl = i)		
+		X, Y = get_xy_sensor(agl = i)
 		# 点を描画
 		point = canvas1.create_oval(X - 2, Y - 2, X + 2, Y + 2, fill=GREEN, outline="")
 		# 描画を更新
@@ -77,7 +86,8 @@ try:
 		time.sleep(0.2)
 
 	root.mainloop()
-except KeyboardInterrupt:                       # Ctrl + C??????
+except KeyboardInterrupt:
+	# Ctrl + Cで処理を中断
 	servo.stop_servo()
-	GPIO.cleanup()                              # GPIO????
-	sys.exit()                                  # ???????
+	GPIO.cleanup()
+	sys.exit()
