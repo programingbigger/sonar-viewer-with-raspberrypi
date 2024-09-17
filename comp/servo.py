@@ -1,3 +1,16 @@
+"""
+function内容）
+- set_angle
+- servoを指定した角度にする
+
+- stop_servo
+- servoを初期位置の0°にする
+
+test内容）
+angle = 30°に回転させる
+
+"""
+
 import pigpio
 import time
 
